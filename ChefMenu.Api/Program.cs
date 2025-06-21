@@ -11,6 +11,8 @@ using Microsoft.AspNetCore.Authorization;
 
 var builder = WebApplication.CreateSlimBuilder(args);
 
+builder.WebHost.UseKestrelHttpsConfiguration();
+
 builder.Services
     .Configure<BinderOptions>(x => x.ErrorOnUnknownConfiguration = true)
     .ConfigureHttpJsonOptions(x =>
@@ -62,6 +64,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app
+    .UseHsts()
+    .UseHttpsRedirection()
     .UseAuthentication()
     .UseAuthorization();
 

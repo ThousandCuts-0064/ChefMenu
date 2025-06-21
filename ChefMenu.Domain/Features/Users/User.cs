@@ -16,9 +16,9 @@ public sealed class User : Entity<UserId>
     public required PasswordHash PasswordHash { get; set; }
     public required UserRole Role { get; set; }
     public required DisplayName DisplayName { get; set; }
-    public Description Description { get; set; }
+    public Description? Description { get; set; }
     public DateTime CreatedAt { get; init; }
-    public DateTime UpdatedAt { get; set; }
+    public DateTime? UpdatedAt { get; set; }
     public Uri? ImageUri { get; set; }
     public Rank? Rank { get; set; }
     public bool IsPublic { get; set; }

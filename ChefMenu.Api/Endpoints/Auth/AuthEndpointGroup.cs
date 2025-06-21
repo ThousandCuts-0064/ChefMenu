@@ -1,4 +1,5 @@
 ﻿using ChefMenu.Api.Endpoints.Auth.Login;
+using ChefMenu.Api.Endpoints.Auth.Refresh;
 using ChefMenu.Api.Endpoints.Auth.Register;
 using ChefMenu.Api.Endpoints.Core;
 
@@ -10,5 +11,6 @@ public struct AuthEndpointGroup : IEndpointGroup
         .MapGroup("/auth")
         .AllowAnonymous()
         .MapEndpoint<RegisterUserEndpoint>()
-        .MapEndpoint<LoginUserEndpoint>();
+        .MapEndpoint<LoginUserEndpoint>()
+        .MapEndpoint<RefreshTokenEndpoint>();
 }

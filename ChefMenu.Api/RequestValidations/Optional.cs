@@ -38,9 +38,9 @@ public readonly record struct Optional<T>
 
     public required T? ValueObject
     {
-        get => !IsValid
-            ? ValueObject
-            : throw new InvalidOperationException($"{typeof(Optional<>).Name} was not validated.");
+        get => IsValid
+            ? _valueObject
+            : throw new InvalidOperationException($"{typeof(Optional<T>).Name} was not validated.");
         init => _valueObject = value;
     }
 

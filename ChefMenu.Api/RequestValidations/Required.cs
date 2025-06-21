@@ -28,9 +28,9 @@ public readonly record struct Required<T>
 
     public required T ValueObject
     {
-        get => !IsValid
-            ? ValueObject
-            : throw new InvalidOperationException($"{typeof(Required<>).Name} was not validated.");
+        get => IsValid
+            ? _valueObject
+            : throw new InvalidOperationException($"{typeof(Required<T>).Name} was not validated.");
         init => _valueObject = value;
     }
 
