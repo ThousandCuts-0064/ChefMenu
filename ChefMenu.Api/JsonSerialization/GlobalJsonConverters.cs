@@ -3,9 +3,9 @@ using ChefMenu.Api.JsonSerialization.ValueObjectJsonConverters;
 using ChefMenu.Domain.Features.Categories.ValueObjects;
 using ChefMenu.Domain.Features.Comments.ValueObjects;
 using ChefMenu.Domain.Features.Core.ValueObjects;
+using ChefMenu.Domain.Features.Ingredients.ValueObjects;
 using ChefMenu.Domain.Features.Keywords.ValueObjects;
 using ChefMenu.Domain.Features.Kitchenwares.ValueObjects;
-using ChefMenu.Domain.Features.Products.ValueObjects;
 using ChefMenu.Domain.Features.RecipeCollections.ValueObjects;
 using ChefMenu.Domain.Features.Recipes.ValueObjects;
 using ChefMenu.Domain.Features.Shared.ValueObjects;
@@ -37,7 +37,7 @@ public static class GlobalJsonConverters
             .AddIntObjectConverter<CommentId>()
             .AddIntObjectConverter<KeywordId>()
             .AddIntObjectConverter<KitchenwareId>()
-            .AddIntObjectConverter<ProductId>()
+            .AddIntObjectConverter<IngredientId>()
             .AddIntObjectConverter<RecipeId>()
             .AddIntObjectConverter<RecipeCollectionId>()
             .AddIntObjectConverter<UserFeedbackId>();
@@ -49,7 +49,7 @@ public static class GlobalJsonConverters
             .AddStringObjectConverter<CategoryName>()
             .AddStringObjectConverter<KeywordName>()
             .AddStringObjectConverter<KitchenwareName>()
-            .AddStringObjectConverter<ProductName>()
+            .AddStringObjectConverter<IngredientName>()
             .AddStringObjectConverter<RecipeName>()
             .AddStringObjectConverter<RecipeCollectionName>()
             .AddStringObjectConverter<EntityName>()

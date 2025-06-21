@@ -1,8 +1,8 @@
 ﻿using ChefMenu.Domain.Features.Categories;
 using ChefMenu.Domain.Features.Comments;
+using ChefMenu.Domain.Features.Ingredients;
 using ChefMenu.Domain.Features.Keywords;
 using ChefMenu.Domain.Features.Kitchenwares;
-using ChefMenu.Domain.Features.Products;
 using ChefMenu.Domain.Features.RecipeCollections;
 using ChefMenu.Domain.Features.Recipes;
 using ChefMenu.Domain.Features.SystemActionHistories;
@@ -20,7 +20,7 @@ public interface IAppDbContext
     public DbSet<Kitchenware> Kitchenwares { get; }
     public DbSet<Keyword> Keywords { get; }
     public DbSet<Category> Categories { get; }
-    public DbSet<Product> Products { get; }
+    public DbSet<Ingredient> Ingredients { get; }
     public DbSet<Recipe> Recipes { get; }
     public DbSet<Comment> Comments { get; }
     public DbSet<RecipeCollection> RecipeCollections { get; }

@@ -4,12 +4,12 @@ using ChefMenu.Domain.Features.Categories.ValueObjects;
 using ChefMenu.Domain.Features.Comments;
 using ChefMenu.Domain.Features.Comments.ValueObjects;
 using ChefMenu.Domain.Features.Core;
+using ChefMenu.Domain.Features.Ingredients;
+using ChefMenu.Domain.Features.Ingredients.ValueObjects;
 using ChefMenu.Domain.Features.Keywords;
 using ChefMenu.Domain.Features.Keywords.ValueObjects;
 using ChefMenu.Domain.Features.Kitchenwares;
 using ChefMenu.Domain.Features.Kitchenwares.ValueObjects;
-using ChefMenu.Domain.Features.Products;
-using ChefMenu.Domain.Features.Products.ValueObjects;
 using ChefMenu.Domain.Features.RecipeCollections;
 using ChefMenu.Domain.Features.RecipeCollections.ValueObjects;
 using ChefMenu.Domain.Features.Recipes;
@@ -24,7 +24,7 @@ public sealed class UserAction : JoinEntity
     public required UserActionType Type { get; init; }
 
     public UserId? ChefId { get; init; }
-    public ProductId? ProductId { get; init; }
+    public IngredientId? IngredientId { get; init; }
     public KitchenwareId? KitchenwareId { get; init; }
     public CategoryId? CategoryId { get; init; }
     public KeywordId? KeywordId { get; init; }
@@ -33,7 +33,7 @@ public sealed class UserAction : JoinEntity
     public CommentId? CommentId { get; init; }
 
     public User? Chef { get; init; }
-    public Product? Product { get; init; }
+    public Ingredient? Ingredient { get; init; }
     public Kitchenware? Kitchenware { get; init; }
     public Category? Category { get; init; }
     public Keyword? Keyword { get; init; }

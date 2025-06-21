@@ -1,10 +1,8 @@
-﻿using System.Security.Claims;
-using ChefMenu.Api.Endpoints.Core;
+﻿using ChefMenu.Api.Endpoints.Core;
 using ChefMenu.Api.Extensions;
 using ChefMenu.Application.Core.Mediators;
 using ChefMenu.Application.Features.Auth.Commands.Register;
 using ChefMenu.Application.Features.Auth.Commands.Register.Results;
-using Microsoft.AspNetCore.Authentication.BearerToken;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 

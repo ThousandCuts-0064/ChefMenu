@@ -1,6 +1,6 @@
-﻿using ChefMenu.Domain.Features.Keywords;
+﻿using ChefMenu.Domain.Features.Ingredients;
+using ChefMenu.Domain.Features.Keywords;
 using ChefMenu.Domain.Features.Kitchenwares;
-using ChefMenu.Domain.Features.Products;
 using ChefMenu.Domain.Features.Recipes;
 using ChefMenu.Domain.Features.Recipes.ValueObjects;
 using ChefMenu.Infrastructure.ConfigurationExtensions;
@@ -45,25 +45,25 @@ internal class RecipeConfiguration : IEntityTypeConfiguration<Recipe>
                 });
 
         builder
-            .HasMany(x => x.Products)
+            .HasMany(x => x.Ingredients)
             .WithMany(x => x.Recipes)
-            .UsingEntity<ProductRecipe>(
+            .UsingEntity<IngredientRecipe>(
                 x => x
-                    .HasOne(y => y.Product)
+                    .HasOne(y => y.Ingredient)
                     .WithMany()
-                    .HasForeignKey(y => y.ProductId)
+                    .HasForeignKey(y => y.IngredientId)
                     .HasPrincipalKey(y => y.Id)
                     .OnDelete(DeleteBehavior.Restrict),
                 x => x
                     .HasOne(y => y.Recipe)
-                    .WithMany(y => y.ProductRecipes)
+                    .WithMany(y => y.IngredientRecipes)
                     .HasForeignKey(y => y.RecipeId)
                     .HasPrincipalKey(y => y.Id)
                     .OnDelete(DeleteBehavior.Restrict),
                 x =>
                 {
-                    x.HasKey(y => new { y.ProductId, y.RecipeId });
-                    x.HasIndex(y => y.RecipeId).IncludeProperties(y => y.ProductId);
+                    x.HasKey(y => new { y.IngredientId, y.RecipeId });
+                    x.HasIndex(y => y.RecipeId).IncludeProperties(y => y.IngredientId);
                     x.HasJoinAudit();
                 });
 

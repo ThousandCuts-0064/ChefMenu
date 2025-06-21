@@ -18,8 +18,8 @@ public static class ErrorCodes
     public const string InvalidCategoryId = $"{Domain}{_}{Category}{_}{Id}{_}{Invalid}";
     public const string InvalidCategoryName = $"{Domain}{_}{Category}{_}{Name}{_}{Invalid}";
 
-    public const string InvalidProductId = $"{Domain}{_}{Product}{_}{Id}{_}{Invalid}";
-    public const string InvalidProductName = $"{Domain}{_}{Product}{_}{Name}{_}{Invalid}";
+    public const string InvalidIngredientId = $"{Domain}{_}{Ingredient}{_}{Id}{_}{Invalid}";
+    public const string InvalidIngredientName = $"{Domain}{_}{Ingredient}{_}{Name}{_}{Invalid}";
 
     public const string InvalidRecipeId = $"{Domain}{_}{Recipe}{_}{Id}{_}{Invalid}";
     public const string InvalidRecipeName = $"{Domain}{_}{Recipe}{_}{Name}{_}{Invalid}";

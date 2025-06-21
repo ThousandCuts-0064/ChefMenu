@@ -25,16 +25,16 @@ internal class CategoryConfiguration : IEntityTypeConfiguration<Category>
             .OnDelete(DeleteBehavior.Restrict);
 
         builder
-            .HasOne(x => x.Product)
+            .HasOne(x => x.Ingredient)
             .WithMany(x => x.Categories)
-            .HasForeignKey(x => x.ProductId)
+            .HasForeignKey(x => x.IngredientId)
             .HasPrincipalKey(x => x.Id)
             .OnDelete(DeleteBehavior.Restrict);
 
         var unionProps = builder.Metadata.FindProperties(
         [
             nameof(Category.KitchenwareId),
-            nameof(Category.ProductId)
+            nameof(Category.IngredientId)
         ])!;
 
         builder.ToTable(x => x.HasCheckConstraint(

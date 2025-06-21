@@ -14,7 +14,7 @@ internal class UserActionConfiguration : IEntityTypeConfiguration<UserAction>
             x.CreatedById,
             x.Type,
             x.ChefId,
-            x.ProductId,
+            x.IngredientId,
             x.KitchenwareId,
             x.CategoryId,
             x.KeywordId,
@@ -28,7 +28,7 @@ internal class UserActionConfiguration : IEntityTypeConfiguration<UserAction>
         var unionProps = builder.Metadata.FindProperties(
         [
             nameof(UserAction.ChefId),
-            nameof(UserAction.ProductId),
+            nameof(UserAction.IngredientId),
             nameof(UserAction.KitchenwareId),
             nameof(UserAction.CategoryId),
             nameof(UserAction.KeywordId),
@@ -52,7 +52,7 @@ internal class UserActionConfiguration : IEntityTypeConfiguration<UserAction>
              """));
 
         builder.HasIndex(x => x.ChefId).HasFilter($"{unionProps[0].GetColumnName()} IS NOT NULL");
-        builder.HasIndex(x => x.ProductId).HasFilter($"{unionProps[1].GetColumnName()} IS NOT NULL");
+        builder.HasIndex(x => x.IngredientId).HasFilter($"{unionProps[1].GetColumnName()} IS NOT NULL");
         builder.HasIndex(x => x.KitchenwareId).HasFilter($"{unionProps[2].GetColumnName()} IS NOT NULL");
         builder.HasIndex(x => x.CategoryId).HasFilter($"{unionProps[3].GetColumnName()} IS NOT NULL");
         builder.HasIndex(x => x.KeywordId).HasFilter($"{unionProps[4].GetColumnName()} IS NOT NULL");

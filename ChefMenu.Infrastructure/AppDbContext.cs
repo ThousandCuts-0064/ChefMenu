@@ -2,9 +2,9 @@
 using ChefMenu.Domain.Enums;
 using ChefMenu.Domain.Features.Categories;
 using ChefMenu.Domain.Features.Comments;
+using ChefMenu.Domain.Features.Ingredients;
 using ChefMenu.Domain.Features.Keywords;
 using ChefMenu.Domain.Features.Kitchenwares;
-using ChefMenu.Domain.Features.Products;
 using ChefMenu.Domain.Features.RecipeCollections;
 using ChefMenu.Domain.Features.Recipes;
 using ChefMenu.Domain.Features.Shared.ValueObjects;
@@ -25,7 +25,7 @@ internal sealed class AppDbContext : DbContext, IAppDbContext
     public DbSet<Kitchenware> Kitchenwares { get; init; }
     public DbSet<Keyword> Keywords { get; init; }
     public DbSet<Category> Categories { get; init; }
-    public DbSet<Product> Products { get; init; }
+    public DbSet<Ingredient> Ingredients { get; init; }
     public DbSet<Recipe> Recipes { get; init; }
     public DbSet<Comment> Comments { get; init; }
     public DbSet<RecipeCollection> RecipeCollections { get; init; }
@@ -53,7 +53,7 @@ internal sealed class AppDbContext : DbContext, IAppDbContext
             .ApplyConfiguration(new KitchenwareConfiguration())
             .ApplyConfiguration(new KeywordConfiguration())
             .ApplyConfiguration(new CategoryConfiguration())
-            .ApplyConfiguration(new ProductConfiguration())
+            .ApplyConfiguration(new IngredientConfiguration())
             .ApplyConfiguration(new RecipeConfiguration())
             .ApplyConfiguration(new CommentConfiguration())
             .ApplyConfiguration(new RecipeCollectionConfiguration())

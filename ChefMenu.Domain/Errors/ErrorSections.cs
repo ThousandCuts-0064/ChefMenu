@@ -10,7 +10,7 @@ public static class ErrorSections
     public const string Kitchenware = "kitchenware";
     public const string Keyword = "keyword";
     public const string Category = "category";
-    public const string Product = "product";
+    public const string Ingredient = "ingredient";
     public const string Recipe = "recipe";
     public const string Comment = "comment";
     public const string RecipeCollection = "recipe-collection";
