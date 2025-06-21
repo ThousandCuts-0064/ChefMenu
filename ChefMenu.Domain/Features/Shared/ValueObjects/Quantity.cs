@@ -7,6 +7,8 @@ namespace ChefMenu.Domain.Features.Shared.ValueObjects;
 
 public readonly record struct Quantity : IValueObject<Quantity, int>
 {
+    public const int Min = 1;
+
     public static string ErrorCode => ErrorCodes.InvalidQuantity;
     public static string ErrorMessage => "Quantity must be positive.";
 
@@ -16,7 +18,7 @@ public readonly record struct Quantity : IValueObject<Quantity, int>
 
     public static Quantity Create(int value)
     {
-        return value >= Constraints.MinId
+        return value >= Min
             ? new Quantity(value)
             : ValueObjectException.Throw<Quantity>(value);
     }

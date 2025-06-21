@@ -2,11 +2,9 @@ using System.Security.Claims;
 using ChefMenu.Api.Endpoints.Auth;
 using ChefMenu.Api.Endpoints.Core;
 using ChefMenu.Api.JsonSerialization;
-using ChefMenu.Api.JsonSerialization.ValueObjectJsonConverters;
 using ChefMenu.Api.RequestValidations;
 using ChefMenu.Application.DependencyInjection;
 using ChefMenu.Domain.Enums;
-using ChefMenu.Domain.Features.Users.ValueObjects;
 using ChefMenu.Infrastructure.DependencyInjection;
 using Microsoft.AspNetCore.Authentication.BearerToken;
 using Microsoft.AspNetCore.Authorization;
@@ -18,8 +16,7 @@ builder.Services
     .ConfigureHttpJsonOptions(x =>
     {
         x.SerializerOptions.TypeInfoResolver = GlobalJsonTypeInfoResolver.Instance;
-        x.SerializerOptions.Converters.Add(new StringValueObjectJsonConverter<Password>());
-        x.SerializerOptions.Converters.Add(new StringValueObjectJsonConverter<Username>());
+        x.SerializerOptions.Converters.AddGlobalJsonConverters();
     })
     .AddApplication(new ApplicationOptions
     {
@@ -48,6 +45,7 @@ builder.Services
         .RequireRole(Enum.GetNames<UserRole>())
         .RequireClaim(ClaimTypes.NameIdentifier)
         .RequireClaim(ClaimTypes.Name)
+        .RequireClaim(ClaimTypes.Expiration)
         .Build());
 
 if (builder.Environment.IsDevelopment())

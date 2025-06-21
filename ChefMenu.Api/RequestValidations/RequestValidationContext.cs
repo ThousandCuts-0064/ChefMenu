@@ -8,12 +8,12 @@ public class RequestValidationContext
 {
     private readonly Dictionary<string, List<ValidationError>> _errors = [];
 
-    public void Require<TValueObject>(
-        TValueObject? valueObject,
-        [CallerArgumentExpression(nameof(valueObject))] string expression = null!)
+    public void Validate<TValueObject>(
+        Required<TValueObject> required,
+        [CallerArgumentExpression(nameof(required))] string expression = null!)
         where TValueObject : struct, IValueObject
     {
-        if (valueObject is not null)
+        if (required.IsValid)
         {
             return;
         }

@@ -21,10 +21,10 @@ public struct RegisterUserEndpoint : IEndpoint
         {
             var result = await executor.ExecuteAsync(new RegisterUserCommand
             {
-                Username = request.Username.Require(),
-                Email = request.Email.Require(),
-                Password = request.Password.Require(),
-                DisplayName = request.DisplayName.Require(),
+                Username = request.Username,
+                Email = request.Email,
+                Password = request.Password,
+                DisplayName = request.DisplayName,
             }, ct);
 
             return result.MapToHttpResults(
@@ -35,23 +35,10 @@ public struct RegisterUserEndpoint : IEndpoint
 
     private static SignInHttpResult MapCreated(UserCreatedResult result)
     {
-        var principal = new ClaimsPrincipal(new ClaimsIdentity(
-        [
-            new Claim(
-                ClaimTypes.NameIdentifier,
-                result.Id.ToString(),
-                ClaimValueTypes.Integer32),
-            new Claim(
-                ClaimTypes.Name,
-                result.Username,
-                ClaimValueTypes.String),
-            new Claim(
-                ClaimTypes.Role,
-                result.Role.ToString(),
-                ClaimValueTypes.String)
-        ], BearerTokenDefaults.AuthenticationScheme));
-
-        return TypedResults.SignIn(principal);
+        return TypedResults.Extensions.SignInWithBearer(
+            result.Id,
+            result.Username,
+            result.Role);
     }
 
     private static ProblemHttpResult MapAlreadyExists(UsernameAlreadyExistsResult result)
