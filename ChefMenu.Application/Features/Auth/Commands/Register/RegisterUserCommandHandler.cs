@@ -39,7 +39,7 @@ internal sealed class RegisterUserCommandHandler : ICommandHandler<RegisterUserC
                 Role = entity.Role
             });
         }
-        catch
+        catch(Exception ex)
         {
             return message.SetResult(new UsernameAlreadyExistsResult
             {

@@ -14,7 +14,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace ChefMenu.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250629140717_Initial")]
+    [Migration("20250629210254_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -894,6 +894,10 @@ namespace ChefMenu.Infrastructure.Migrations
                         .HasColumnType("text")
                         .HasColumnName("entity_name");
 
+                    b.Property<int>("ExecutedById")
+                        .HasColumnType("integer")
+                        .HasColumnName("executed_by_id");
+
                     b.Property<JsonElement>("New")
                         .HasColumnType("jsonb")
                         .HasColumnName("new");
@@ -912,6 +916,9 @@ namespace ChefMenu.Infrastructure.Migrations
 
                     b.HasKey("Id")
                         .HasName("pk_system_action_histories");
+
+                    b.HasIndex("ExecutedById")
+                        .HasDatabaseName("ix_system_action_histories_executed_by_id");
 
                     b.ToTable("system_action_histories", (string)null);
                 });
@@ -1715,6 +1722,18 @@ namespace ChefMenu.Infrastructure.Migrations
                     b.Navigation("Recipe");
 
                     b.Navigation("RecipeCollection");
+                });
+
+            modelBuilder.Entity("ChefMenu.Domain.Features.SystemActionHistories.SystemActionHistory", b =>
+                {
+                    b.HasOne("ChefMenu.Domain.Features.Users.User", "ExecutedBy")
+                        .WithMany()
+                        .HasForeignKey("ExecutedById")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fk_system_action_histories_users_executed_by_id");
+
+                    b.Navigation("ExecutedBy");
                 });
 
             modelBuilder.Entity("ChefMenu.Domain.Features.SystemConfigs.SystemConfig", b =>

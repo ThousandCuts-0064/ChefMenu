@@ -28,23 +28,6 @@ namespace ChefMenu.Infrastructure.Migrations
                 .Annotation("Npgsql:PostgresExtension:pg_trgm", ",,");
 
             migrationBuilder.CreateTable(
-                name: "system_action_histories",
-                columns: table => new
-                {
-                    id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityAlwaysColumn),
-                    type = table.Column<SystemActionType>(type: "system_action_type", nullable: false),
-                    entity_name = table.Column<string>(type: "text", nullable: false),
-                    occurred_at = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    old = table.Column<JsonElement>(type: "jsonb", nullable: false),
-                    @new = table.Column<JsonElement>(name: "new", type: "jsonb", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("pk_system_action_histories", x => x.id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "users",
                 columns: table => new
                 {
@@ -333,6 +316,30 @@ namespace ChefMenu.Infrastructure.Migrations
                         principalTable: "users",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "system_action_histories",
+                columns: table => new
+                {
+                    id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityAlwaysColumn),
+                    executed_by_id = table.Column<int>(type: "integer", nullable: false),
+                    type = table.Column<SystemActionType>(type: "system_action_type", nullable: false),
+                    entity_name = table.Column<string>(type: "text", nullable: false),
+                    occurred_at = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    old = table.Column<JsonElement>(type: "jsonb", nullable: false),
+                    @new = table.Column<JsonElement>(name: "new", type: "jsonb", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("pk_system_action_histories", x => x.id);
+                    table.ForeignKey(
+                        name: "fk_system_action_histories_users_executed_by_id",
+                        column: x => x.executed_by_id,
+                        principalTable: "users",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -1096,6 +1103,11 @@ namespace ChefMenu.Infrastructure.Migrations
                 name: "ix_recipes_updated_by_id",
                 table: "recipes",
                 column: "updated_by_id");
+
+            migrationBuilder.CreateIndex(
+                name: "ix_system_action_histories_executed_by_id",
+                table: "system_action_histories",
+                column: "executed_by_id");
 
             migrationBuilder.CreateIndex(
                 name: "ix_system_configs_created_by_id",

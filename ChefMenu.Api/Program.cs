@@ -83,7 +83,7 @@ builder.Services
     {
         x.AddConsole();
         x.AddDebug();
-        x.AddFilter(nameof(Microsoft.AspNetCore.HttpLogging), LogLevel.Information);
+        x.AddFilter(typeof(HttpLoggingOptions).Namespace, LogLevel.Information);
     })
     .AddHttpLogging(x =>
     {
@@ -153,19 +153,14 @@ app
             !x.Request.Path.StartsWithSegments("/api/auth")
             && !x.Request.Path.StartsWithSegments("/openapi")
             && !x.Request.Path.StartsWithSegments("/swagger"),
-        x => x.UseHttpLogging()
+        x => x
+            .UseResponseCompression()
+            .UseHttpLogging()
     )
     .UseHsts()
     .UseHttpsRedirection()
     .UseCors()
     .UseRateLimiter()
-    .UseWhen(
-        x =>
-            !x.Request.Path.StartsWithSegments("/api/auth")
-            && !x.Request.Path.StartsWithSegments("/openapi")
-            && !x.Request.Path.StartsWithSegments("/swagger"),
-        x => x.UseResponseCompression()
-    )
     .UseResponseCaching()
     .UseAuthentication()
     .UseAuthorization();

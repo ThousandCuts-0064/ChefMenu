@@ -12,5 +12,11 @@ internal class SystemActionHistoryConfiguration : IEntityTypeConfiguration<Syste
     {
         builder.Property(x => x.Id).UseIdentityAlwaysColumn().IsValueObject<SystemActionHistoryId, int>();
         builder.Property(x => x.EntityName).IsValueObject<EntityName, string>();
+
+        builder
+            .HasOne(x => x.ExecutedBy)
+            .WithMany()
+            .HasForeignKey(x => x.ExecutedById)
+            .HasPrincipalKey(x => x.Id);
     }
 }

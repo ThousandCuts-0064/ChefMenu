@@ -9,6 +9,16 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <None Remove="Scripts\**\*.sql" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <EmbeddedResource Include="Scripts\**\*.sql">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </EmbeddedResource>
+    </ItemGroup>
+
+    <ItemGroup>
         <ProjectReference Include="..\ChefMenu.Application\ChefMenu.Application.csproj" />
     </ItemGroup>
 
