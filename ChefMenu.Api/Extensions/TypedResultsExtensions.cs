@@ -1,4 +1,5 @@
 ﻿using System.Security.Claims;
+using ChefMenu.Application.Results;
 using ChefMenu.Domain.Enums;
 using ChefMenu.Domain.Features.Users.ValueObjects;
 using Microsoft.AspNetCore.Authentication.BearerToken;
@@ -29,5 +30,13 @@ public static class TypedResultsExtensions
                 role.ToString(),
                 ClaimValueTypes.String)
         ], BearerTokenDefaults.AuthenticationScheme)));
+    }
+
+    public static JsonHttpResult<TValue> ForbidSlim<TValue>(
+        this IResultExtensions _,
+        TValue? value)
+        where TValue : IErrorResult
+    {
+        return TypedResults.Json(value, statusCode: StatusCodes.Status403Forbidden);
     }
 }

@@ -2,5 +2,5 @@
 
 public interface IEndpointGroup
 {
-    public static abstract void Map(RouteGroupBuilder builder);
+    public static abstract RouteGroupBuilder Map(RouteGroupBuilder builder);
 }

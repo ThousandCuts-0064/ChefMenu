@@ -46,6 +46,7 @@ public class RequestValidationContext
         problemDetails = new HttpValidationProblemDetails
         {
             Title = "Validation problem(s) occured",
+            Detail = $"{_errors.Count} validation problem(s) occured",
             Extensions = new Dictionary<string, object?>
             {
                 ["errors"] = _errors

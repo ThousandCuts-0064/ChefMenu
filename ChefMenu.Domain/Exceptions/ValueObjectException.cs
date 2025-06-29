@@ -7,22 +7,22 @@ namespace ChefMenu.Domain.Exceptions;
 public class ValueObjectException : DomainException
 {
     public Type Type { get; }
-    public object ValueObject { get; }
+    public object? Value { get; }
 
     protected ValueObjectException(
         string code,
         string message,
         Type type,
-        object valueObject)
+        object? value)
         : base(code, message)
     {
         Type = type;
-        ValueObject = valueObject;
+        Value = value;
     }
 
     [DebuggerStepThrough]
     [DoesNotReturn]
-    public static TValueObject Throw<TValueObject>(object value)
+    public static TValueObject Throw<TValueObject>(object? value)
         where TValueObject : IValueObject
     {
         throw new ValueObjectException(

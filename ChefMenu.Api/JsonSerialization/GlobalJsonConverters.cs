@@ -1,5 +1,8 @@
-﻿using System.Text.Json.Serialization;
+﻿using System.Text.Json;
+using System.Text.Json.Serialization;
 using ChefMenu.Api.JsonSerialization.ValueObjectJsonConverters;
+using ChefMenu.Application.ValueObjects;
+using ChefMenu.Domain.Enums;
 using ChefMenu.Domain.Features.Categories.ValueObjects;
 using ChefMenu.Domain.Features.Comments.ValueObjects;
 using ChefMenu.Domain.Features.Core.ValueObjects;
@@ -20,10 +23,19 @@ public static class GlobalJsonConverters
 {
     public static void AddGlobalJsonConverters(this ICollection<JsonConverter> converters)
     {
+        converters.Add(new JsonStringEnumConverter<CategoryType>(JsonNamingPolicy.CamelCase));
+        converters.Add(new JsonStringEnumConverter<MeasurementUnit>(JsonNamingPolicy.CamelCase));
+        converters.Add(new JsonStringEnumConverter<SystemActionType>(JsonNamingPolicy.CamelCase));
+        converters.Add(new JsonStringEnumConverter<UserActionType>(JsonNamingPolicy.CamelCase));
+        converters.Add(new JsonStringEnumConverter<UserFeedbackStatus>(JsonNamingPolicy.CamelCase));
+        converters.Add(new JsonStringEnumConverter<UserFeedbackType>(JsonNamingPolicy.CamelCase));
+        converters.Add(new JsonStringEnumConverter<UserRole>(JsonNamingPolicy.CamelCase));
+
         // shared
         converters
             .AddIntObjectConverter<Quantity>()
-            .AddIntObjectConverter<Rank>();
+            .AddIntObjectConverter<Rank>()
+            .AddIntObjectConverter<PageSize>();
 
         converters
             .AddStringObjectConverter<Description>()
@@ -60,6 +72,8 @@ public static class GlobalJsonConverters
         this ICollection<JsonConverter> converters)
         where TValueObject : struct, IValueObject<TValueObject, int>
     {
+        converters.Add(new ValueObjectJsonConverter<TValueObject, int>());
+        converters.Add(new NullableValueObjectJsonConverter<TValueObject, int>());
         converters.Add(new RequiredValueObjectJsonConverter<TValueObject, int>());
         converters.Add(new OptionalValueObjectJsonConverter<TValueObject, int>());
 
@@ -70,6 +84,8 @@ public static class GlobalJsonConverters
         this ICollection<JsonConverter> converters)
         where TValueObject : struct, IValueObject<TValueObject, string>
     {
+        converters.Add(new StringObjectJsonConverter<TValueObject>());
+        converters.Add(new NullableStringObjectJsonConverter<TValueObject>());
         converters.Add(new RequiredStringObjectJsonConverter<TValueObject>());
         converters.Add(new OptionalStringObjectJsonConverter<TValueObject>());
 

@@ -7,7 +7,7 @@ namespace ChefMenu.Domain.Features.Core;
 public abstract class AuditableEntity<TKey> : Entity<TKey>, IAuditableEntity
     where TKey : struct, IKeyObject
 {
-    public UserId CreatedById { get; init; }
+    public required UserId CreatedById { get; init; }
     public UserId? UpdatedById { get; set; }
     public UserId? DeletedById { get; set; }
 

@@ -1,4 +1,5 @@
-﻿using ChefMenu.Domain.Features.Core.ValueObjects;
+﻿using System.Diagnostics.CodeAnalysis;
+using ChefMenu.Domain.Features.Core.ValueObjects;
 
 namespace ChefMenu.Api.RequestValidations;
 
@@ -21,7 +22,7 @@ public readonly ref struct Required
     }
 }
 
-public readonly record struct Required<T>
+public readonly record struct Required<T> : IParsable<Required<T>>
     where T : struct, IValueObject
 {
     private readonly T _valueObject;
@@ -37,4 +38,12 @@ public readonly record struct Required<T>
     public bool IsValid { get; init; }
 
     public static implicit operator T(Required<T> required) => required.ValueObject;
+    public static Required<T> Parse(string s, IFormatProvider? provider)
+    {
+        throw new NotImplementedException();
+    }
+    public static bool TryParse([NotNullWhen(true)] string? s, IFormatProvider? provider, out Required<T> result)
+    {
+        throw new NotImplementedException();
+    }
 }

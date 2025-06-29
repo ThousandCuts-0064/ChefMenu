@@ -2,6 +2,6 @@
 
 public sealed class InfrastructureOptions
 {
-    public required string ConnectionString { get; init; }
     public required bool IsDevelopment { get; init; }
+    public required string ConnectionString { get; init; }
 }

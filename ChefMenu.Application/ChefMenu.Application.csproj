@@ -22,4 +22,19 @@
         <ProjectReference Include="..\ChefMenu.Domain\ChefMenu.Domain.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Features\Categories\Queries\Get\" />
+      <Folder Include="Features\Categories\Queries\Search\" />
+      <Folder Include="Features\Ingredients\Queries\Get\" />
+      <Folder Include="Features\Ingredients\Queries\Search\" />
+      <Folder Include="Features\Keywords\Queries\Get\" />
+      <Folder Include="Features\Keywords\Queries\Search\" />
+      <Folder Include="Features\Kitchenwares\Queries\Get\" />
+      <Folder Include="Features\Kitchenwares\Queries\Search\" />
+      <Folder Include="Features\RecipeCollections\Queries\Get\" />
+      <Folder Include="Features\RecipeCollections\Queries\Search\" />
+      <Folder Include="Features\Recipes\Queries\Get\" />
+      <Folder Include="Features\Recipes\Queries\Search\" />
+    </ItemGroup>
+
 </Project>

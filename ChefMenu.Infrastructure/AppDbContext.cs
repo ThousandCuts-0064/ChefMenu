@@ -31,7 +31,7 @@ internal sealed class AppDbContext : DbContext, IAppDbContext
     public DbSet<RecipeCollection> RecipeCollections { get; init; }
     public DbSet<SystemConfig> SystemConfigs { get; init; }
     public DbSet<UserAction> UserActions { get; init; }
-    public DbSet<UserFeedback> UserFeedbacks { get; init; }
+    public DbSet<UserFeedback> UserFeedback { get; init; }
     public DbSet<SystemActionHistory> SystemActionHistories { get; init; }
 
     public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
@@ -49,6 +49,10 @@ internal sealed class AppDbContext : DbContext, IAppDbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder
+            .HasPostgresExtension("pg_trgm")
+            .HasPostgresExtension("fuzzystrmatch");
+
+        modelBuilder
             .ApplyConfiguration(new UserConfiguration())
             .ApplyConfiguration(new KitchenwareConfiguration())
             .ApplyConfiguration(new KeywordConfiguration())
@@ -61,20 +65,20 @@ internal sealed class AppDbContext : DbContext, IAppDbContext
             .ApplyConfiguration(new UserActionConfiguration())
             .ApplyConfiguration(new UserFeedbackConfiguration())
             .ApplyConfiguration(new SystemActionHistoryConfiguration());
-
-        modelBuilder
-            .HasPostgresEnum<MeasurementUnit>()
-            .HasPostgresEnum<SystemActionType>()
-            .HasPostgresEnum<UserActionType>()
-            .HasPostgresEnum<UserFeedbackStatus>()
-            .HasPostgresEnum<UserFeedbackType>()
-            .HasPostgresEnum<UserRole>();
     }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         optionsBuilder
             .UseSnakeCaseNamingConvention()
-            .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
+            .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking)
+            .UseNpgsql(x => x
+                .MapEnum<CategoryType>()
+                .MapEnum<MeasurementUnit>()
+                .MapEnum<SystemActionType>()
+                .MapEnum<UserActionType>()
+                .MapEnum<UserFeedbackStatus>()
+                .MapEnum<UserFeedbackType>()
+                .MapEnum<UserRole>());
     }
 }

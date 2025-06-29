@@ -1,5 +1,4 @@
-﻿using ChefMenu.Domain.Constants;
-using ChefMenu.Domain.Errors;
+﻿using ChefMenu.Domain.Errors;
 using ChefMenu.Domain.Exceptions;
 using ChefMenu.Domain.Features.Core.ValueObjects;
 
@@ -25,7 +24,7 @@ public readonly record struct Quantity : IValueObject<Quantity, int>
 
     public static bool TryCreate(int value, out Quantity result)
     {
-        var canCreate = value >= Constraints.MinId;
+        var canCreate = value >= Min;
 
         result = canCreate ? new Quantity(value) : default;
 

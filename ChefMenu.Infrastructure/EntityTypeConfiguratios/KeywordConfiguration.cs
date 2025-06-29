@@ -14,6 +14,7 @@ internal class KeywordConfiguration : IEntityTypeConfiguration<Keyword>
         builder.Property(x => x.Name).IsValueObject<KeywordName, string>();
 
         builder.HasIndex(x => x.Name).IncludeProperties(x => x.Id).IsUnique();
+        builder.HasFuzzyIndex(x => x.Name);
 
         builder.HasAudit();
     }

@@ -17,6 +17,10 @@ public readonly partial record struct Email : IKeyObject<Email, string>
     public static string ErrorCode => ErrorCodes.InvalidEmail;
     public static string ErrorMessage => "Email is invalid.";
 
+    public static Email InternalSystem { get; } = new("chefmenu.internal@gmail.com");
+    public static Email PublicSystem { get; } = new("chefmenu.public@gmail.com");
+    public static Email AiSystem { get; } = new("chefmenu.ai@gmail.com");
+
     public string Value { get; }
 
     private Email(string value) => Value = value;

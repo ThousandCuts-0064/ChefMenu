@@ -2,18 +2,37 @@
 
 public static class EndpointBuilderExtensions
 {
+    private const string EndpountGroupSuffix = "EndpointGroup";
+    private const string EndpointSuffix = "Endpoint";
+
     public static RouteGroupBuilder MapEndpointGroup<TEndpointGroup>(this RouteGroupBuilder builder)
         where TEndpointGroup : struct, IEndpointGroup
     {
-        TEndpointGroup.Map(builder);
+        var tag = typeof(TEndpointGroup).Name;
+
+        tag = tag.EndsWith(EndpountGroupSuffix)
+            ? tag[..^EndpountGroupSuffix.Length]
+            : throw new ArgumentOutOfRangeException(nameof(TEndpointGroup), "Unexpected type name suffix");
+
+        TEndpointGroup.Map(builder).WithTags(tag);
 
         return builder;
     }
 
-    public static IEndpointRouteBuilder MapEndpoint<TEndpoint>(this IEndpointRouteBuilder builder)
+    public static RouteGroupBuilder MapEndpoint<TEndpoint>(
+        this RouteGroupBuilder builder,
+        Action<IEndpointConventionBuilder>? onConfig = null)
         where TEndpoint : struct, IEndpoint
     {
-        TEndpoint.Map(builder);
+        var name = typeof(TEndpoint).Name;
+
+        name = name.EndsWith(EndpointSuffix)
+            ? name[..^EndpointSuffix.Length]
+            : throw new ArgumentOutOfRangeException(nameof(TEndpoint), "Unexpected type name suffix");
+
+        var endpoint = TEndpoint.Map(builder).WithName(name);
+
+        onConfig?.Invoke(endpoint);
 
         return builder;
     }

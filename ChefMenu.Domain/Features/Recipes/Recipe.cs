@@ -11,7 +11,7 @@ namespace ChefMenu.Domain.Features.Recipes;
 
 public sealed class Recipe : ContentEntity<RecipeId, RecipeName>
 {
-    public JsonElement Content { get; set; }
+    public required JsonElement Content { get; set; }
     public Rank? Rank { get; set; }
     public bool IsPublic { get; set; }
 

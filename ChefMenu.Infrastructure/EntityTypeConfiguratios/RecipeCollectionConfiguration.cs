@@ -17,6 +17,7 @@ internal class RecipeCollectionConfiguration : IEntityTypeConfiguration<RecipeCo
 
         builder.HasIndex(x => new { x.Name, x.CreatedById }).IncludeProperties(x => x.Id).IsUnique();
         builder.HasIndex(x => x.CreatedById);
+        builder.HasFuzzyIndex(x => x.Name);
 
         builder.HasAudit(x => x.CreatedRecipeCollections);
 

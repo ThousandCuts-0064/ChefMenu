@@ -26,7 +26,7 @@ public interface IAppDbContext
     public DbSet<RecipeCollection> RecipeCollections { get; }
     public DbSet<SystemConfig> SystemConfigs { get; }
     public DbSet<UserAction> UserActions { get; init; }
-    public DbSet<UserFeedback> UserFeedbacks { get; init; }
+    public DbSet<UserFeedback> UserFeedback { get; init; }
     public DbSet<SystemActionHistory> SystemActionHistories { get; init; }
 
     public Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);

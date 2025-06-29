@@ -53,6 +53,7 @@ internal class CommentConfiguration : IEntityTypeConfiguration<Comment>
 
         var unionProps = builder.Metadata.FindProperties(
         [
+            nameof(Comment.ParentId),
             nameof(Comment.UserId),
             nameof(Comment.RecipeId),
             nameof(Comment.RecipeCollectionId),
@@ -66,7 +67,15 @@ internal class CommentConfiguration : IEntityTypeConfiguration<Comment>
                 + ({unionProps[1].GetColumnName()} IS NOT NULL)::int
                 + ({unionProps[2].GetColumnName()} IS NOT NULL)::int
                 + ({unionProps[3].GetColumnName()} IS NOT NULL)::int
+                + ({unionProps[4].GetColumnName()} IS NOT NULL)::int
                 = 1
              """));
+
+        builder.HasIndex(x => x.ParentId).HasFilter($"{unionProps[0].GetColumnName()} IS NOT NULL");
+        builder.HasIndex(x => x.UserId).HasFilter($"{unionProps[1].GetColumnName()} IS NOT NULL");
+        builder.HasIndex(x => x.RecipeId).HasFilter($"{unionProps[2].GetColumnName()} IS NOT NULL");
+        builder.HasIndex(x => x.RecipeCollectionId).HasFilter($"{unionProps[3].GetColumnName()} IS NOT NULL");
+        builder.HasIndex(x => x.UserFeedbackId).HasFilter($"{unionProps[4].GetColumnName()} IS NOT NULL");
+
     }
 }

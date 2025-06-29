@@ -12,7 +12,7 @@ internal class UserFeedbackConfiguration : IEntityTypeConfiguration<UserFeedback
     {
         builder.Property(x => x.Id).UseIdentityAlwaysColumn().IsValueObject<UserFeedbackId, int>();
 
-        builder.HasAudit(x => x.CreatedUserFeedbacks);
+        builder.HasAudit(x => x.CreatedUserFeedback);
 
         builder
             .HasOne(x => x.AsignedTo)

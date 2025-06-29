@@ -19,6 +19,7 @@ public sealed class RegisterUserCommand : Command<RegisterUserCommand, Results<
 
     internal User ToEntity(PasswordHash passwordHash) => new()
     {
+        CreatedById = UserId.PublicSystem,
         Username = Username,
         Email = Email,
         PasswordHash = passwordHash,

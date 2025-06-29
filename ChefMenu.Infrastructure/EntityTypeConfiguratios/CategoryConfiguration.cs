@@ -14,35 +14,8 @@ internal class CategoryConfiguration : IEntityTypeConfiguration<Category>
         builder.Property(x => x.Name).IsValueObject<CategoryName, string>();
 
         builder.HasIndex(x => x.Name).IncludeProperties(x => x.Id).IsUnique();
+        builder.HasFuzzyIndex(x => x.Name);
 
         builder.HasAudit();
-
-        builder
-            .HasOne(x => x.Kitchenware)
-            .WithMany(x => x.Categories)
-            .HasForeignKey(x => x.KitchenwareId)
-            .HasPrincipalKey(x => x.Id)
-            .OnDelete(DeleteBehavior.Restrict);
-
-        builder
-            .HasOne(x => x.Ingredient)
-            .WithMany(x => x.Categories)
-            .HasForeignKey(x => x.IngredientId)
-            .HasPrincipalKey(x => x.Id)
-            .OnDelete(DeleteBehavior.Restrict);
-
-        var unionProps = builder.Metadata.FindProperties(
-        [
-            nameof(Category.KitchenwareId),
-            nameof(Category.IngredientId)
-        ])!;
-
-        builder.ToTable(x => x.HasCheckConstraint(
-            "ck_union",
-            $"""
-                ({unionProps[0].GetColumnName()} IS NOT NULL)::int
-                + ({unionProps[1].GetColumnName()} IS NOT NULL)::int
-                = 1
-             """));
     }
 }
