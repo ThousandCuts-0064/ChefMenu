@@ -6,7 +6,7 @@ using ChefMenu.Domain.Features.Core.ValueObjects;
 
 namespace ChefMenu.Domain.Features.Users.ValueObjects;
 
-public readonly partial record struct Username : IKeyObject<Username, string>, IParsable<Username>
+public readonly partial record struct Username : IKeyObject<Username, string>
 {
     [StringSyntax(StringSyntaxAttribute.Regex)]
     public const string Pattern = "^[a-zA-Z0-9_.+-]{2,16}$";
@@ -41,7 +41,10 @@ public readonly partial record struct Username : IKeyObject<Username, string>, I
 
     public override string ToString() => Value;
 
-    public static Username Parse(string s, IFormatProvider? provider) => Create(s);
+    public static Username Parse(string s, IFormatProvider? provider)
+    {
+        return Create(s);
+    }
 
     public static bool TryParse([NotNullWhen(true)] string? s, IFormatProvider? provider, out Username result)
     {

@@ -13,9 +13,9 @@ public sealed class UserResult : IResult
     public required Username Username { get; init; }
     public required UserRole Role { get; set; }
     public required DisplayName DisplayName { get; set; }
-    public Description? Description { get; set; }
-    public Uri? ImageUri { get; set; }
-    public Rank? Rank { get; set; }
+    public required Description? Description { get; set; }
+    public required Uri? ImageUri { get; set; }
+    public required Rank? Rank { get; set; }
 
     public static Expression<Func<User, UserResult>> FromEntity { get; } = x => new UserResult
     {

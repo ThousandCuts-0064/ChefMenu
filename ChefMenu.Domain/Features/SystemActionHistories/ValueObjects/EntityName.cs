@@ -1,8 +1,9 @@
-﻿using ChefMenu.Domain.Features.Core.ValueObjects;
+﻿using System.Diagnostics.CodeAnalysis;
+using ChefMenu.Domain.Features.Core.ValueObjects;
 
 namespace ChefMenu.Domain.Features.SystemActionHistories.ValueObjects;
 
-public readonly record struct EntityName  : IValueObject<EntityName, string>
+public readonly record struct EntityName  : IKeyObject<EntityName, string>
 {
     public static string ErrorCode => throw new NotSupportedException();
     public static string ErrorMessage => throw new NotSupportedException();
@@ -23,6 +24,18 @@ public readonly record struct EntityName  : IValueObject<EntityName, string>
     public static EntityName CreateUnchecked(string value) => new(value);
 
     public override string ToString() => Value;
+
+    public static EntityName Parse(string s, IFormatProvider? provider)
+    {
+        return Create(s);
+    }
+
+    public static bool TryParse([NotNullWhen(true)] string? s, IFormatProvider? provider, out EntityName result)
+    {
+        result = default;
+
+        return s is not null && TryCreate(s, out result);
+    }
 
     public static implicit operator string(EntityName valueObject) => valueObject.Value;
 }

@@ -45,5 +45,17 @@ public readonly partial record struct Email : IKeyObject<Email, string>
 
     public override string ToString() => Value;
 
+    public static Email Parse(string s, IFormatProvider? provider)
+    {
+        return Create(s);
+    }
+
+    public static bool TryParse([NotNullWhen(true)] string? s, IFormatProvider? provider, out Email result)
+    {
+        result = default;
+
+        return s is not null && TryCreate(s, out result);
+    }
+
     public static implicit operator string(Email valueObject) => valueObject.Value;
 }

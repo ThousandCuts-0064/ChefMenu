@@ -11,6 +11,6 @@ public struct UsersEndpointGroup : IEndpointGroup
     public static RouteGroupBuilder Map(RouteGroupBuilder builder) => builder
         .MapGroup("/users")
         .MapEndpoint<GetSearchUsersEndpoint>(x => x.AllowAnonymous())
-        .MapEndpoint<GetUserEndpoint>()
-        .MapEndpoint<PatchUserRoleEndpoint>(x => x.RequireAuthorization(AuthPolicies.ModeratorPlus));
+        .MapEndpoint<GetUsersEndpoint>()
+        .MapEndpoint<PatchUsersRoleEndpoint>(x => x.RequireAuthorization(AuthPolicies.ModeratorPlus));
 }

@@ -1,4 +1,5 @@
-﻿using ChefMenu.Domain.Constants;
+﻿using System.Diagnostics.CodeAnalysis;
+using ChefMenu.Domain.Constants;
 using ChefMenu.Domain.Errors;
 using ChefMenu.Domain.Exceptions;
 using ChefMenu.Domain.Features.Core.ValueObjects;
@@ -33,6 +34,18 @@ public readonly record struct KitchenwareId : IKeyObject<KitchenwareId, int>
     public static KitchenwareId CreateUnchecked(int value) => new(value);
 
     public override string ToString() => Value.ToString();
+
+    public static KitchenwareId Parse(string s, IFormatProvider? provider)
+    {
+        return Create(int.Parse(s, provider));
+    }
+
+    public static bool TryParse([NotNullWhen(true)] string? s, IFormatProvider? provider, out KitchenwareId result)
+    {
+        result = default;
+
+        return int.TryParse(s, provider, out var value) && TryCreate(value, out result);
+    }
 
     public static implicit operator int(KitchenwareId valueObject) => valueObject.Value;
 }

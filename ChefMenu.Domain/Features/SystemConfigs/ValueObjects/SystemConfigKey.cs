@@ -1,4 +1,5 @@
-﻿using ChefMenu.Domain.Features.Core.ValueObjects;
+﻿using System.Diagnostics.CodeAnalysis;
+using ChefMenu.Domain.Features.Core.ValueObjects;
 
 namespace ChefMenu.Domain.Features.SystemConfigs.ValueObjects;
 
@@ -23,6 +24,18 @@ public readonly record struct SystemConfigKey : IKeyObject<SystemConfigKey, stri
     public static SystemConfigKey CreateUnchecked(string value) => new(value);
 
     public override string ToString() => Value;
+
+    public static SystemConfigKey Parse(string s, IFormatProvider? provider)
+    {
+        return Create(s);
+    }
+
+    public static bool TryParse([NotNullWhen(true)] string? s, IFormatProvider? provider, out SystemConfigKey result)
+    {
+        result = default;
+
+        return s is not null && TryCreate(s, out result);
+    }
 
     public static implicit operator string(SystemConfigKey valueObject) => valueObject.Value;
 }

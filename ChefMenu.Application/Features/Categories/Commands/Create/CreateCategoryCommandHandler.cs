@@ -30,7 +30,7 @@ public sealed class CreateCategoryCommandHandler : ICommandHandler<CreateCategor
                 Id = entity.Id,
             });
         }
-        catch
+        catch(Exception ex)
         {
             return message.SetResult(new CategoryNameAlreadyExists
             {

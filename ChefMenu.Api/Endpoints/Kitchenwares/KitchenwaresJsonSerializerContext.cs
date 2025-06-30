@@ -5,7 +5,7 @@ using ChefMenu.Application.Features.Kitchenwares.Commands.Create.Results;
 
 namespace ChefMenu.Api.Endpoints.Kitchenwares;
 
-[JsonSerializable(typeof(PostKitchenwareRequest))]
+[JsonSerializable(typeof(PostKitchenwaresRequest))]
 [JsonSerializable(typeof(KitchenwareCreatedResult))]
 [JsonSerializable(typeof(KitchenwareNameAlreadyExists))]
 internal partial class KitchenwaresJsonSerializerContext : ApiJsonSerializerContext;

@@ -41,5 +41,17 @@ public readonly partial record struct IngredientName : IKeyObject<IngredientName
 
     public override string ToString() => Value;
 
+    public static IngredientName Parse(string s, IFormatProvider? provider)
+    {
+        return Create(s);
+    }
+
+    public static bool TryParse([NotNullWhen(true)] string? s, IFormatProvider? provider, out IngredientName result)
+    {
+        result = default;
+
+        return s is not null && TryCreate(s, out result);
+    }
+
     public static implicit operator string(IngredientName valueObject) => valueObject.Value;
 }

@@ -6,7 +6,7 @@ using ChefMenu.Domain.Features.Core.ValueObjects;
 
 namespace ChefMenu.Domain.Features.Users.ValueObjects;
 
-public readonly record struct UserId : IKeyObject<UserId, int>, IParsable<UserId>
+public readonly record struct UserId : IKeyObject<UserId, int>
 {
     public static string ErrorCode => ErrorCodes.InvalidUserId;
     public static string ErrorMessage => "User Id must be positive.";

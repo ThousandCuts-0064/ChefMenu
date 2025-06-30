@@ -41,5 +41,17 @@ public readonly partial record struct CategoryName : IKeyObject<CategoryName, st
 
     public override string ToString() => Value;
 
+    public static CategoryName Parse(string s, IFormatProvider? provider)
+    {
+        return Create(s);
+    }
+
+    public static bool TryParse([NotNullWhen(true)] string? s, IFormatProvider? provider, out CategoryName result)
+    {
+        result = default;
+
+        return s is not null && TryCreate(s, out result);
+    }
+
     public static implicit operator string(CategoryName valueObject) => valueObject.Value;
 }

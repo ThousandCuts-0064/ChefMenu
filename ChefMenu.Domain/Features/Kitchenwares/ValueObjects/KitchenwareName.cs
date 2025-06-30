@@ -41,5 +41,17 @@ public readonly partial record struct KitchenwareName: IKeyObject<KitchenwareNam
 
     public override string ToString() => Value;
 
+    public static KitchenwareName Parse(string s, IFormatProvider? provider)
+    {
+        return Create(s);
+    }
+
+    public static bool TryParse([NotNullWhen(true)] string? s, IFormatProvider? provider, out KitchenwareName result)
+    {
+        result = default;
+
+        return s is not null && TryCreate(s, out result);
+    }
+
     public static implicit operator string(KitchenwareName valueObject) => valueObject.Value;
 }

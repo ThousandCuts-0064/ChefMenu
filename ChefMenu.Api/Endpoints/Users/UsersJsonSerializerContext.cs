@@ -9,6 +9,6 @@ namespace ChefMenu.Api.Endpoints.Users;
 
 [JsonSerializable(typeof(SearchUsersResult))]
 [JsonSerializable(typeof(UserIdNotFoundResult))]
-[JsonSerializable(typeof(PatchUserRoleRequest))]
+[JsonSerializable(typeof(PatchUsersRoleRequest))]
 [JsonSerializable(typeof(UserIdCannotBeMeResult))]
 internal sealed partial class UsersJsonSerializerContext : ApiJsonSerializerContext;

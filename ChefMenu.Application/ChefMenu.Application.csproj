@@ -23,7 +23,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Features\Categories\Queries\Get\" />
       <Folder Include="Features\Categories\Queries\Search\" />
       <Folder Include="Features\Ingredients\Queries\Get\" />
       <Folder Include="Features\Ingredients\Queries\Search\" />

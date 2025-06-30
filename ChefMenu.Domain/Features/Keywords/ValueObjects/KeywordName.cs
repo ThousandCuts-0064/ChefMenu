@@ -41,5 +41,17 @@ public readonly partial record struct KeywordName : IKeyObject<KeywordName, stri
 
     public override string ToString() => Value;
 
+    public static KeywordName Parse(string s, IFormatProvider? provider)
+    {
+        return Create(s);
+    }
+
+    public static bool TryParse([NotNullWhen(true)] string? s, IFormatProvider? provider, out KeywordName result)
+    {
+        result = default;
+
+        return s is not null && TryCreate(s, out result);
+    }
+
     public static implicit operator string(KeywordName valueObject) => valueObject.Value;
 }

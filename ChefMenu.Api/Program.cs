@@ -3,6 +3,7 @@ using ChefMenu.Api.Constants;
 using ChefMenu.Api.Endpoints.Ai;
 using ChefMenu.Api.Endpoints.Auth;
 using ChefMenu.Api.Endpoints.Categories;
+using ChefMenu.Api.Endpoints.Comments;
 using ChefMenu.Api.Endpoints.Core;
 using ChefMenu.Api.Endpoints.Ingredients;
 using ChefMenu.Api.Endpoints.Keywords;
@@ -10,6 +11,8 @@ using ChefMenu.Api.Endpoints.Kitchenwares;
 using ChefMenu.Api.Endpoints.Me;
 using ChefMenu.Api.Endpoints.RecipeCollections;
 using ChefMenu.Api.Endpoints.Recipes;
+using ChefMenu.Api.Endpoints.SystemConfigs;
+using ChefMenu.Api.Endpoints.UserFeedbacks;
 using ChefMenu.Api.Endpoints.Users;
 using ChefMenu.Api.Extensions;
 using ChefMenu.Api.JsonSerialization;
@@ -211,6 +214,9 @@ app
     .MapEndpointGroup<KeywordsEndpointGroup>()
     .MapEndpointGroup<RecipesEndpointGroup>()
     .MapEndpointGroup<RecipeCollectionsEndpointGroup>()
-    .MapEndpointGroup<AiEndpointGroup>();
+    .MapEndpointGroup<AiEndpointGroup>()
+    .MapEndpointGroup<CommentsEndpointGroup>()
+    .MapEndpointGroup<UserFeedbackEndpointGroup>()
+    .MapEndpointGroup<SystemConfigsEndpointGroup>();
 
 await app.RunAsync();
