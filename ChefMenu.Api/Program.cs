@@ -21,8 +21,16 @@ using Microsoft.AspNetCore.HttpLogging;
 using Microsoft.AspNetCore.RateLimiting;
 using Microsoft.Net.Http.Headers;
 using Microsoft.OpenApi.Models;
+using Serilog;
+using Serilog.Context;
+
+Log.Logger = new LoggerConfiguration()
+    .WriteTo.Console()
+    .CreateBootstrapLogger();
 
 var builder = WebApplication.CreateSlimBuilder(args);
+
+builder.Host.UseSerilog((context, x) => x.ReadFrom.Configuration(context.Configuration));
 
 builder.WebHost.UseKestrelHttpsConfiguration();
 
@@ -78,12 +86,6 @@ builder.Services
     .AddProblemDetails(x => x.CustomizeProblemDetails = y =>
     {
         y.ProblemDetails.Extensions["traceId"] = y.HttpContext.TraceIdentifier;
-    })
-    .AddLogging(x =>
-    {
-        x.AddConsole();
-        x.AddDebug();
-        x.AddFilter(typeof(HttpLoggingOptions).Namespace, LogLevel.Information);
     })
     .AddHttpLogging(x =>
     {
@@ -156,6 +158,7 @@ app
         x => x
             .UseResponseCompression()
             .UseHttpLogging()
+            .UseSerilogRequestLogging()
     )
     .UseHsts()
     .UseHttpsRedirection()
@@ -163,7 +166,24 @@ app
     .UseRateLimiter()
     .UseResponseCaching()
     .UseAuthentication()
-    .UseAuthorization();
+    .UseAuthorization()
+    .Use(async (context, next) =>
+    {
+        if (context.User.Identity?.IsAuthenticated ?? false)
+        {
+            using (LogContext.PushProperty("_pipe", "|"))
+            using (LogContext.PushProperty("UserId", context.User.GetUserId()))
+            using (LogContext.PushProperty("Username", context.User.GetUsername()))
+            using (LogContext.PushProperty("UserRole", context.User.GetUserRole()))
+            {
+                await next();
+            }
+        }
+        else
+        {
+            await next();
+        }
+    });
 
 app
     .MapGroup("/api")
