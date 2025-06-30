@@ -1,5 +1,6 @@
 using System.Security.Claims;
 using ChefMenu.Api.Constants;
+using ChefMenu.Api.Endpoints.Ai;
 using ChefMenu.Api.Endpoints.Auth;
 using ChefMenu.Api.Endpoints.Categories;
 using ChefMenu.Api.Endpoints.Core;
@@ -21,6 +22,7 @@ using Microsoft.AspNetCore.HttpLogging;
 using Microsoft.AspNetCore.RateLimiting;
 using Microsoft.Net.Http.Headers;
 using Microsoft.OpenApi.Models;
+using Mscc.GenerativeAI.Web;
 using Serilog;
 using Serilog.Context;
 
@@ -97,6 +99,15 @@ builder.Services
         y.PermitLimit = 60;
         y.Window = TimeSpan.FromMinutes(1);
     }));
+
+builder.Services.AddGenerativeAI(x =>
+{
+    x.Model = builder.Configuration["GenerativeAI:Model"];
+    x.Credentials = new GenerativeAICredentials
+    {
+        ApiKey = builder.Configuration["GenerativeAI:ApiKey"]
+    };
+});
 
 if (builder.Environment.IsDevelopment())
 {
@@ -199,6 +210,7 @@ app
     .MapEndpointGroup<KitchenwaresEndpointGroup>()
     .MapEndpointGroup<KeywordsEndpointGroup>()
     .MapEndpointGroup<RecipesEndpointGroup>()
-    .MapEndpointGroup<RecipeCollectionsEndpointGroup>();
+    .MapEndpointGroup<RecipeCollectionsEndpointGroup>()
+    .MapEndpointGroup<AiEndpointGroup>();
 
 await app.RunAsync();
