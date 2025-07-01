@@ -7,6 +7,6 @@ public struct GetMeTypeCreatedEndpoint : IEndpoint
 {
     public static IEndpointConventionBuilder Map(IEndpointRouteBuilder builder)
     {
-        return builder.MapGet("{type}", (EntityName type) => { });
+        return builder.MapGet("{type}/created", (EntityName type) => { });
     }
 }

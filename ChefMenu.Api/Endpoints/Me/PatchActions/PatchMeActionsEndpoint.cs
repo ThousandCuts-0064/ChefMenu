@@ -6,6 +6,6 @@ public struct PatchMeActionsEndpoint : IEndpoint
 {
     public static IEndpointConventionBuilder Map(IEndpointRouteBuilder builder)
     {
-        return builder.MapPatch("/actions", () => { });
+        return builder.MapPatch("/actions/{id:int}", (int id) => { });
     }
 }
